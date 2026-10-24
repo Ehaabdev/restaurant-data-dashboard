@@ -6,6 +6,8 @@ export function maxDecimals(places: number): ValidatorFn {
   return (control) => {
     const value = control.value;
     if (typeof value !== 'number') return null;
-    return Math.abs(value * factor - Math.round(value * factor)) > 1e-6 ? { maxDecimals: { places } } : null;
+    return Math.abs(value * factor - Math.round(value * factor)) > 1e-6
+      ? { maxDecimals: { places } }
+      : null;
   };
 }

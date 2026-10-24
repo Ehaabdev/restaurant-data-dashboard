@@ -34,22 +34,50 @@ const CATEGORIES: Record<string, CategorySpec> = {
   },
   Sushi: {
     styles: ['Spicy', 'Crispy', 'Deluxe', 'Classic', 'Seared', 'Rainbow'],
-    dishes: ['Salmon Roll', 'Tuna Nigiri', 'California Roll', 'Dragon Roll', 'Eel Maki', 'Sashimi Set'],
+    dishes: [
+      'Salmon Roll',
+      'Tuna Nigiri',
+      'California Roll',
+      'Dragon Roll',
+      'Eel Maki',
+      'Sashimi Set',
+    ],
     price: [8, 32],
   },
   Grills: {
     styles: ['Charcoal', 'Herb-crusted', 'Smoky', 'Peri-peri', 'Garlic Butter', 'Mixed'],
-    dishes: ['Ribeye Steak', 'Lamb Chops', 'Chicken Skewers', 'Kofta', 'Beef Brisket', 'Grilled Salmon'],
+    dishes: [
+      'Ribeye Steak',
+      'Lamb Chops',
+      'Chicken Skewers',
+      'Kofta',
+      'Beef Brisket',
+      'Grilled Salmon',
+    ],
     price: [14, 45],
   },
   Sandwiches: {
     styles: ['Toasted', 'Classic', 'Spicy', 'Deli', 'Grilled', 'Loaded'],
-    dishes: ['Club Sandwich', 'Philly Cheesesteak', 'Chicken Wrap', 'Falafel Wrap', 'Reuben', 'BLT'],
+    dishes: [
+      'Club Sandwich',
+      'Philly Cheesesteak',
+      'Chicken Wrap',
+      'Falafel Wrap',
+      'Reuben',
+      'BLT',
+    ],
     price: [6, 15],
   },
   Soups: {
     styles: ['Hearty', 'Creamy', 'Spicy', 'Homestyle', 'Roasted', 'Classic'],
-    dishes: ['Tomato Soup', 'Lentil Soup', 'Chicken Noodle Soup', 'Miso Soup', 'Minestrone', 'Pumpkin Soup'],
+    dishes: [
+      'Tomato Soup',
+      'Lentil Soup',
+      'Chicken Noodle Soup',
+      'Miso Soup',
+      'Minestrone',
+      'Pumpkin Soup',
+    ],
     price: [4, 11],
   },
   Sides: {
@@ -69,7 +97,14 @@ const CATEGORIES: Record<string, CategorySpec> = {
   },
   Breakfast: {
     styles: ['Classic', 'Full', 'Healthy', 'Fluffy', 'Smoked Salmon', 'Avocado'],
-    dishes: ['Pancakes', 'Eggs Benedict', 'Omelette', 'Granola Bowl', 'French Toast', 'Breakfast Platter'],
+    dishes: [
+      'Pancakes',
+      'Eggs Benedict',
+      'Omelette',
+      'Granola Bowl',
+      'French Toast',
+      'Breakfast Platter',
+    ],
     price: [6, 17],
   },
 };

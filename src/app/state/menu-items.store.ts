@@ -57,7 +57,13 @@ export class MenuItemsStore {
   setFilters(filters: ItemFilters): void {
     const next = activeFilters(filters);
     if (shallowEqual(next, this.filters())) return;
-    this._query.update(({ pageSize, sortBy, sortOrder }) => ({ ...next, pageSize, sortBy, sortOrder, page: 1 }));
+    this._query.update(({ pageSize, sortBy, sortOrder }) => ({
+      ...next,
+      pageSize,
+      sortBy,
+      sortOrder,
+      page: 1,
+    }));
   }
 
   resetFilters(): void {
@@ -66,7 +72,12 @@ export class MenuItemsStore {
 
   /** Passing no field returns to the default (id) order. */
   setSort(sortBy: SortField | undefined, sortOrder: SortOrder = 'asc'): void {
-    this._query.update((query) => ({ ...query, sortBy, sortOrder: sortBy ? sortOrder : undefined, page: 1 }));
+    this._query.update((query) => ({
+      ...query,
+      sortBy,
+      sortOrder: sortBy ? sortOrder : undefined,
+      page: 1,
+    }));
   }
 
   setPage(page: number, pageSize: number): void {
@@ -90,7 +101,10 @@ export class MenuItemsStore {
       tap((updated) => {
         this.remote.update((state) => ({
           ...state,
-          data: { ...state.data, items: state.data.items.map((item) => (item.id === id ? updated : item)) },
+          data: {
+            ...state.data,
+            items: state.data.items.map((item) => (item.id === id ? updated : item)),
+          },
         }));
         this.reload();
         this.statsStore.reload();
@@ -99,7 +113,15 @@ export class MenuItemsStore {
   }
 }
 
-const FILTER_KEYS = ['search', 'restaurantId', 'branchId', 'category', 'available', 'minPrice', 'maxPrice'] as const;
+const FILTER_KEYS = [
+  'search',
+  'restaurantId',
+  'branchId',
+  'category',
+  'available',
+  'minPrice',
+  'maxPrice',
+] as const;
 
 /** Keeps only filters that are set, so `{ search: ' ' }` and `{}` mean the same. */
 function activeFilters(source: ItemFilters): ItemFilters {

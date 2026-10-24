@@ -27,7 +27,11 @@ function simulateNetwork({ latencyMs = 0, errorRate = 0 }: AppOptions): RequestH
   };
 }
 
-export function createApp(repository: MenuRepository, overrides: OverridesFile, options: AppOptions = {}) {
+export function createApp(
+  repository: MenuRepository,
+  overrides: OverridesFile,
+  options: AppOptions = {},
+) {
   const app = express();
   app.use(express.json());
 
@@ -41,7 +45,9 @@ export function createApp(repository: MenuRepository, overrides: OverridesFile, 
 
   app.patch('/api/items/:id', async (req, res) => {
     const id = Number(req.params.id);
-    if (!Number.isInteger(id) || !repository.has(id)) return sendError(res, 404, `Item ${req.params.id} not found`);
+    if (!Number.isInteger(id) || !repository.has(id)) {
+      return sendError(res, 404, `Item ${req.params.id} not found`);
+    }
 
     const patch = parseItemPatch(req.body);
     if (!patch.ok) return sendError(res, 400, 'Invalid item update', patch.errors);

@@ -32,7 +32,10 @@ export class DashboardPage {
 
   protected readonly branches = computed(() => {
     const restaurantId = this.store.filters().restaurantId;
-    return this.options.restaurants().find((restaurant) => restaurant.id === restaurantId)?.branches ?? [];
+    return (
+      this.options.restaurants().find((restaurant) => restaurant.id === restaurantId)?.branches ??
+      []
+    );
   });
 
   protected readonly availableShare = computed(() => {

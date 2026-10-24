@@ -22,7 +22,9 @@ export class MenuApi {
   private readonly baseUrl = '/api';
 
   getItems(query: ItemQuery): Observable<PagedResult<MenuItem>> {
-    return this.http.get<PagedResult<MenuItem>>(`${this.baseUrl}/items`, { params: toParams(query) });
+    return this.http.get<PagedResult<MenuItem>>(`${this.baseUrl}/items`, {
+      params: toParams(query),
+    });
   }
 
   updateItem(id: number, patch: MenuItemPatch): Observable<MenuItem> {
@@ -42,7 +44,9 @@ export class MenuApi {
 function toParams(values: object): HttpParams {
   let params = new HttpParams();
   for (const [key, value] of Object.entries(values)) {
-    if (value !== undefined && value !== null && value !== '') params = params.set(key, String(value));
+    if (value !== undefined && value !== null && value !== '') {
+      params = params.set(key, String(value));
+    }
   }
   return params;
 }
@@ -53,6 +57,8 @@ export function toErrorMessage(error: unknown): string {
   if (error.status === 0) return 'Cannot reach the server. Is the mock API running?';
 
   const body = error.error as Partial<ApiErrorBody> | null;
-  if (body?.message) return body.details?.length ? `${body.message}: ${body.details.join('; ')}` : body.message;
+  if (body?.message) {
+    return body.details?.length ? `${body.message}: ${body.details.join('; ')}` : body.message;
+  }
   return `Request failed with status ${error.status}.`;
 }

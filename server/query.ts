@@ -61,7 +61,11 @@ export function parseFilters(raw: RawParams): ParseResult<ItemFilters> {
     errors.push('"available" must be "true" or "false"');
   }
 
-  if (filters.minPrice !== undefined && filters.maxPrice !== undefined && filters.minPrice > filters.maxPrice) {
+  if (
+    filters.minPrice !== undefined &&
+    filters.maxPrice !== undefined &&
+    filters.minPrice > filters.maxPrice
+  ) {
     errors.push('"minPrice" cannot be greater than "maxPrice"');
   }
 
@@ -75,14 +79,18 @@ export function parseItemQuery(raw: RawParams): ParseResult<ItemQuery> {
   const page = readNumber(raw, 'page', errors, { integer: true }) ?? 1;
   const pageSize = readNumber(raw, 'pageSize', errors, { integer: true }) ?? DEFAULT_PAGE_SIZE;
   if (page < 1) errors.push('"page" must be 1 or greater');
-  if (pageSize < 1 || pageSize > MAX_PAGE_SIZE) errors.push(`"pageSize" must be between 1 and ${MAX_PAGE_SIZE}`);
+  if (pageSize < 1 || pageSize > MAX_PAGE_SIZE) {
+    errors.push(`"pageSize" must be between 1 and ${MAX_PAGE_SIZE}`);
+  }
 
   const sortBy = readString(raw, 'sortBy');
   if (sortBy !== undefined && !SORT_FIELDS.includes(sortBy as SortField)) {
     errors.push(`"sortBy" must be one of: ${SORT_FIELDS.join(', ')}`);
   }
   const sortOrder = readString(raw, 'sortOrder') ?? 'asc';
-  if (sortOrder !== 'asc' && sortOrder !== 'desc') errors.push('"sortOrder" must be "asc" or "desc"');
+  if (sortOrder !== 'asc' && sortOrder !== 'desc') {
+    errors.push('"sortOrder" must be "asc" or "desc"');
+  }
 
   if (errors.length || !filters.ok) return { ok: false, errors };
   return {

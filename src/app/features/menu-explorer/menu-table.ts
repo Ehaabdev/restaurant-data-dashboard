@@ -48,14 +48,26 @@ export class MenuTable {
   readonly pageChange = output<PageChange>();
   readonly itemSelected = output<MenuItem>();
 
-  protected readonly columns = ['id', 'name', 'restaurant', 'branch', 'category', 'price', 'available', 'lastUpdated', 'actions'];
+  protected readonly columns = [
+    'id',
+    'name',
+    'restaurant',
+    'branch',
+    'category',
+    'price',
+    'available',
+    'lastUpdated',
+    'actions',
+  ];
   protected readonly pageSizeOptions = [...PAGE_SIZE_OPTIONS];
 
   /** Lets the table reuse row elements for items it already rendered. */
   protected readonly trackById = (_index: number, item: MenuItem) => item.id;
 
   protected onSort({ active, direction }: Sort): void {
-    this.sortChange.emit(direction ? { sortBy: active as SortField, sortOrder: direction } : { sortOrder: 'asc' });
+    this.sortChange.emit(
+      direction ? { sortBy: active as SortField, sortOrder: direction } : { sortOrder: 'asc' },
+    );
   }
 
   protected onPage({ pageIndex, pageSize }: PageEvent): void {

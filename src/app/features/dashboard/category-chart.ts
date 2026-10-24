@@ -43,7 +43,11 @@ export class CategoryChart {
   private chart?: Chart<'bar', number[], string>;
 
   protected readonly description = computed(
-    () => 'Items by category: ' + this.data().map(({ category, count }) => `${category} ${count}`).join(', '),
+    () =>
+      'Items by category: ' +
+      this.data()
+        .map(({ category, count }) => `${category} ${count}`)
+        .join(', '),
   );
 
   constructor() {
@@ -67,7 +71,14 @@ export class CategoryChart {
       type: 'bar',
       data: {
         labels,
-        datasets: [{ label: 'Items', data: counts, backgroundColor: getComputedStyle(canvas).color, borderRadius: 6 }],
+        datasets: [
+          {
+            label: 'Items',
+            data: counts,
+            backgroundColor: getComputedStyle(canvas).color,
+            borderRadius: 6,
+          },
+        ],
       },
       options: {
         responsive: true,

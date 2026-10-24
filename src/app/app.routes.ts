@@ -11,7 +11,8 @@ export const routes: Routes = [
   {
     path: 'menu',
     title: 'Menu Data Explorer',
-    loadComponent: () => import('./features/menu-explorer/menu-explorer-page').then((m) => m.MenuExplorerPage),
+    loadComponent: () =>
+      import('./features/menu-explorer/menu-explorer-page').then((m) => m.MenuExplorerPage),
   },
   { path: '**', redirectTo: 'dashboard' },
 ];

@@ -1,7 +1,9 @@
 <header class="page-header">
   <div>
     <h1>Dashboard Overview</h1>
-    <p class="subtitle">KPIs are calculated by the API across the complete dataset, not just one page.</p>
+    <p class="subtitle">
+      KPIs are calculated by the API across the complete dataset, not just one page.
+    </p>
   </div>
 
   <div class="scope">
@@ -42,7 +44,11 @@
 
 @if (store.stats(); as stats) {
   <section class="kpis" aria-label="Key figures">
-    <app-kpi-card icon="restaurant_menu" label="Total menu items" [value]="(stats.totalItems | number) ?? ''" />
+    <app-kpi-card
+      icon="restaurant_menu"
+      label="Total menu items"
+      [value]="(stats.totalItems | number) ?? ''"
+    />
     <app-kpi-card
       icon="check_circle"
       tone="success"

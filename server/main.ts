@@ -28,10 +28,14 @@ async function main() {
   const port = Number(values.port);
   app.listen(port, () => {
     const loadMs = Math.round(performance.now() - startedAt);
-    console.log(`Mock API: ${items.length.toLocaleString()} items loaded in ${loadMs} ms (${Object.keys(edits).length} edited)`);
+    console.log(
+      `Mock API: ${items.length.toLocaleString()} items loaded in ${loadMs} ms (${Object.keys(edits).length} edited)`,
+    );
     console.log(`Listening on http://localhost:${port}/api`);
     if (Number(values.latency) || Number(values['error-rate'])) {
-      console.log(`Simulating network: latency up to ${values.latency} ms, error rate ${values['error-rate']}`);
+      console.log(
+        `Simulating network: latency up to ${values.latency} ms, error rate ${values['error-rate']}`,
+      );
     }
   });
 }

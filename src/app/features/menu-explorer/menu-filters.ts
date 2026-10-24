@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input, OnInit, output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  input,
+  OnInit,
+  output,
+} from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -25,7 +33,14 @@ const priceRange: ValidatorFn = (group) => {
  */
 @Component({
   selector: 'app-menu-filters',
-  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatIconModule, MatButtonModule],
+  imports: [
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatIconModule,
+    MatButtonModule,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './menu-filters.html',
   styleUrl: './menu-filters.scss',
@@ -49,12 +64,16 @@ export class MenuFilters implements OnInit {
     { validators: priceRange },
   );
 
-  private readonly restaurantId = toSignal(this.form.controls.restaurantId.valueChanges, { initialValue: null });
+  private readonly restaurantId = toSignal(this.form.controls.restaurantId.valueChanges, {
+    initialValue: null,
+  });
 
   /** All branches grouped by restaurant, or only the selected restaurant's branches. */
   protected readonly branchGroups = computed(() => {
     const id = this.restaurantId();
-    return id === null ? this.restaurants() : this.restaurants().filter((restaurant) => restaurant.id === id);
+    return id === null
+      ? this.restaurants()
+      : this.restaurants().filter((restaurant) => restaurant.id === id);
   });
 
   constructor() {
@@ -78,7 +97,15 @@ export class MenuFilters implements OnInit {
 
   ngOnInit(): void {
     // Start from the store's filters, so they survive leaving and returning to the page.
-    const { search = '', restaurantId, branchId, category, available, minPrice, maxPrice } = this.filters();
+    const {
+      search = '',
+      restaurantId,
+      branchId,
+      category,
+      available,
+      minPrice,
+      maxPrice,
+    } = this.filters();
     this.form.reset({
       search,
       restaurantId: restaurantId ?? null,

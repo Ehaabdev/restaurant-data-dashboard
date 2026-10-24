@@ -65,9 +65,15 @@ describe('item query (filtering, sorting, pagination)', () => {
     const page2 = repository.query(parse({ ...combinedFilters, page: '2' }));
 
     assert.equal(page1.total, 3);
-    assert.deepEqual(page1.items.map((i) => i.id), [7, 2]);
+    assert.deepEqual(
+      page1.items.map((i) => i.id),
+      [7, 2],
+    );
     assert.equal(page2.total, 3);
-    assert.deepEqual(page2.items.map((i) => i.id), [8]);
+    assert.deepEqual(
+      page2.items.map((i) => i.id),
+      [8],
+    );
   });
 
   it('re-sorts after an edit changes the sorted field', () => {
@@ -77,11 +83,20 @@ describe('item query (filtering, sorting, pagination)', () => {
     repository.update(8, { price: 19.99 });
 
     const page1 = repository.query(parse({ ...combinedFilters, page: '1' }));
-    assert.deepEqual(page1.items.map((i) => i.id), [8, 7]);
+    assert.deepEqual(
+      page1.items.map((i) => i.id),
+      [8, 7],
+    );
   });
 
   it('rejects invalid query parameters with readable messages', () => {
-    const result = parseItemQuery({ page: '0', pageSize: '500', sortBy: 'color', minPrice: '20', maxPrice: '5' });
+    const result = parseItemQuery({
+      page: '0',
+      pageSize: '500',
+      sortBy: 'color',
+      minPrice: '20',
+      maxPrice: '5',
+    });
     assert.ok(!result.ok);
     assert.equal(result.errors.length, 4);
   });
@@ -135,7 +150,10 @@ describe('HTTP API', () => {
 
   before(async () => {
     dataDir = await mkdtemp(path.join(tmpdir(), 'menu-api-'));
-    const app = createApp(new MenuRepository(fixture()), new OverridesFile(path.join(dataDir, 'overrides.json')));
+    const app = createApp(
+      new MenuRepository(fixture()),
+      new OverridesFile(path.join(dataDir, 'overrides.json')),
+    );
     const server = app.listen(0);
     await new Promise((resolve) => server.once('listening', resolve));
     baseUrl = `http://localhost:${(server.address() as AddressInfo).port}/api`;
@@ -172,7 +190,9 @@ describe('HTTP API', () => {
     });
     assert.equal(response.status, 400);
 
-    const page = (await (await fetch(`${baseUrl}/items?search=smash`)).json()) as PagedResult<MenuItem>;
+    const page = (await (
+      await fetch(`${baseUrl}/items?search=smash`)
+    ).json()) as PagedResult<MenuItem>;
     assert.equal(page.items[0].price, 16.49);
   });
 });

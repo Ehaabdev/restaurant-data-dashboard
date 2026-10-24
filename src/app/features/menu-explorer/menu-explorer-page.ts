@@ -18,12 +18,18 @@ import { MenuTable } from './menu-table';
     <header class="page-header">
       <div>
         <h1>Menu Data Explorer</h1>
-        <p class="subtitle">Search, filtering, sorting and pagination run in the API; the browser only receives one page.</p>
+        <p class="subtitle">
+          Search, filtering, sorting and pagination run in the API; the browser only receives one
+          page.
+        </p>
       </div>
     </header>
 
     @if (options.error(); as error) {
-      <app-error-banner [message]="'Could not load filter options. ' + error" (retry)="options.reload()" />
+      <app-error-banner
+        [message]="'Could not load filter options. ' + error"
+        (retry)="options.reload()"
+      />
     }
 
     <app-menu-filters

@@ -8,7 +8,9 @@ import { connectRemoteState, initialRemoteState, RemoteState } from './remote-st
 @Injectable({ providedIn: 'root' })
 export class FilterOptionsStore {
   private readonly api = inject(MenuApi);
-  private readonly remote = signal<RemoteState<FilterOptions>>(initialRemoteState({ restaurants: [], categories: [] }));
+  private readonly remote = signal<RemoteState<FilterOptions>>(
+    initialRemoteState({ restaurants: [], categories: [] }),
+  );
   private readonly reload$ = new Subject<void>();
 
   readonly restaurants = computed(() => this.remote().data.restaurants);

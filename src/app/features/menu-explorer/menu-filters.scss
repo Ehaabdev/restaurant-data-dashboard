@@ -1,6 +1,11 @@
 .filters {
   display: grid;
-  grid-template-columns: minmax(220px, 2fr) repeat(4, minmax(150px, 1fr)) repeat(2, minmax(100px, 0.7fr)) auto;
+  /* search | 4 dropdowns | 2 price inputs | reset button */
+  grid-template-columns:
+    minmax(220px, 2fr)
+    repeat(4, minmax(150px, 1fr))
+    repeat(2, minmax(100px, 0.7fr))
+    auto;
   align-items: center;
   gap: 12px;
   padding: 16px;

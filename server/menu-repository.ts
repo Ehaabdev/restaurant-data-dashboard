@@ -1,4 +1,13 @@
-import { FilterOptions, ItemFilters, ItemQuery, MenuItem, MenuStats, PagedResult, RestaurantOption, SortField } from '../shared/models';
+import {
+  FilterOptions,
+  ItemFilters,
+  ItemQuery,
+  MenuItem,
+  MenuStats,
+  PagedResult,
+  RestaurantOption,
+  SortField,
+} from '../shared/models';
 import { compareBy, computeStats, queryItems } from './query';
 
 /** Fields that change when an item is edited. */

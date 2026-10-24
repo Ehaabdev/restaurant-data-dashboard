@@ -4,7 +4,13 @@
     <mat-icon matPrefix>search</mat-icon>
     <input matInput formControlName="search" placeholder="e.g. burger" autocomplete="off" />
     @if (form.controls.search.value) {
-      <button matSuffix mat-icon-button type="button" aria-label="Clear search" (click)="form.controls.search.setValue('')">
+      <button
+        matSuffix
+        mat-icon-button
+        type="button"
+        aria-label="Clear search"
+        (click)="form.controls.search.setValue('')"
+      >
         <mat-icon>close</mat-icon>
       </button>
     }
@@ -55,7 +61,14 @@
 
   <mat-form-field class="price">
     <mat-label>Min price</mat-label>
-    <input matInput type="number" formControlName="minPrice" min="0" step="0.5" inputmode="decimal" />
+    <input
+      matInput
+      type="number"
+      formControlName="minPrice"
+      min="0"
+      step="0.5"
+      inputmode="decimal"
+    />
     @if (form.controls.minPrice.hasError('min')) {
       <mat-error>Cannot be negative</mat-error>
     }
@@ -63,7 +76,14 @@
 
   <mat-form-field class="price">
     <mat-label>Max price</mat-label>
-    <input matInput type="number" formControlName="maxPrice" min="0" step="0.5" inputmode="decimal" />
+    <input
+      matInput
+      type="number"
+      formControlName="maxPrice"
+      min="0"
+      step="0.5"
+      inputmode="decimal"
+    />
     @if (form.controls.maxPrice.hasError('min')) {
       <mat-error>Cannot be negative</mat-error>
     }
