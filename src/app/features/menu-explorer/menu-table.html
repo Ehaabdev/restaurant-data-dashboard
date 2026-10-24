@@ -1,0 +1,93 @@
+<div class="table-card surface-card">
+  <mat-progress-bar mode="indeterminate" [class.hidden]="!loading()" />
+
+  <div class="table-scroll">
+    <table
+      mat-table
+      [dataSource]="items()"
+      [trackBy]="trackById"
+      matSort
+      [matSortActive]="query().sortBy ?? ''"
+      [matSortDirection]="query().sortOrder ?? ''"
+      (matSortChange)="onSort($event)"
+      [class.is-loading]="loading()"
+    >
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let item" class="muted">{{ item.id }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Item name</th>
+        <td mat-cell *matCellDef="let item" class="name">{{ item.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="restaurant">
+        <th mat-header-cell *matHeaderCellDef>Restaurant</th>
+        <td mat-cell *matCellDef="let item">{{ item.restaurantName }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="branch">
+        <th mat-header-cell *matHeaderCellDef>Branch</th>
+        <td mat-cell *matCellDef="let item">{{ item.branchName }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef>Category</th>
+        <td mat-cell *matCellDef="let item">{{ item.category }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header arrowPosition="before" class="numeric">Price</th>
+        <td mat-cell *matCellDef="let item" class="numeric">{{ item.price | currency }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="available">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let item">
+          <span class="status" [class.unavailable]="!item.available">
+            {{ item.available ? 'Available' : 'Unavailable' }}
+          </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="lastUpdated">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Last updated</th>
+        <td mat-cell *matCellDef="let item" class="muted">{{ item.lastUpdated | date: 'MMM d, y, HH:mm' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef><span class="cdk-visually-hidden">Actions</span></th>
+        <td mat-cell *matCellDef="let item">
+          <button
+            mat-icon-button
+            type="button"
+            [attr.aria-label]="'Edit ' + item.name"
+            (click)="$event.stopPropagation(); itemSelected.emit(item)"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let item; columns: columns" (click)="itemSelected.emit(item)"></tr>
+
+      <tr class="mat-mdc-row" *matNoDataRow>
+        <td class="mat-mdc-cell empty" [attr.colspan]="columns.length">
+          {{ loading() ? 'Loading items…' : 'No items match your filters.' }}
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <mat-paginator
+    [length]="total()"
+    [pageIndex]="query().page - 1"
+    [pageSize]="query().pageSize"
+    [pageSizeOptions]="pageSizeOptions"
+    showFirstLastButtons
+    aria-label="Select page of menu items"
+    (page)="onPage($event)"
+  />
+</div>

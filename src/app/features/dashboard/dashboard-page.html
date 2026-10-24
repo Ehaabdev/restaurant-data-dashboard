@@ -1,0 +1,73 @@
+<header class="page-header">
+  <div>
+    <h1>Dashboard Overview</h1>
+    <p class="subtitle">KPIs are calculated by the API across the complete dataset, not just one page.</p>
+  </div>
+
+  <div class="scope">
+    <mat-form-field>
+      <mat-label>Restaurant</mat-label>
+      <mat-select
+        [value]="store.filters().restaurantId ?? null"
+        (selectionChange)="store.setRestaurant($event.value ?? undefined)"
+      >
+        <mat-option [value]="null">All restaurants</mat-option>
+        @for (restaurant of options.restaurants(); track restaurant.id) {
+          <mat-option [value]="restaurant.id">{{ restaurant.name }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Branch</mat-label>
+      <mat-select
+        [value]="store.filters().branchId ?? null"
+        [disabled]="!store.filters().restaurantId"
+        (selectionChange)="store.setBranch($event.value ?? undefined)"
+      >
+        <mat-option [value]="null">All branches</mat-option>
+        @for (branch of branches(); track branch.id) {
+          <mat-option [value]="branch.id">{{ branch.name }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+</header>
+
+<mat-progress-bar mode="indeterminate" [class.hidden]="!store.loading()" />
+
+@if (store.error(); as error) {
+  <app-error-banner [message]="error" (retry)="store.reload()" />
+}
+
+@if (store.stats(); as stats) {
+  <section class="kpis" aria-label="Key figures">
+    <app-kpi-card icon="restaurant_menu" label="Total menu items" [value]="(stats.totalItems | number) ?? ''" />
+    <app-kpi-card
+      icon="check_circle"
+      tone="success"
+      label="Available items"
+      [value]="(stats.availableItems | number) ?? ''"
+      [hint]="(availableShare() | percent: '1.0-1') + ' of all items'"
+    />
+    <app-kpi-card
+      icon="block"
+      tone="warning"
+      label="Unavailable items"
+      [value]="(stats.unavailableItems | number) ?? ''"
+    />
+    <app-kpi-card
+      icon="payments"
+      tone="neutral"
+      label="Average item price"
+      [value]="(stats.averagePrice | currency) ?? ''"
+    />
+  </section>
+
+  <section class="chart-card surface-card">
+    <h2>Items by category</h2>
+    <app-category-chart [data]="stats.byCategory" />
+  </section>
+} @else if (store.status() !== 'error') {
+  <p class="placeholder">Loading dashboard…</p>
+}

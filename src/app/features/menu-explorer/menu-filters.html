@@ -1,0 +1,79 @@
+<form [formGroup]="form" class="filters surface-card">
+  <mat-form-field class="search">
+    <mat-label>Search item name</mat-label>
+    <mat-icon matPrefix>search</mat-icon>
+    <input matInput formControlName="search" placeholder="e.g. burger" autocomplete="off" />
+    @if (form.controls.search.value) {
+      <button matSuffix mat-icon-button type="button" aria-label="Clear search" (click)="form.controls.search.setValue('')">
+        <mat-icon>close</mat-icon>
+      </button>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Restaurant</mat-label>
+    <mat-select formControlName="restaurantId">
+      <mat-option [value]="null">All restaurants</mat-option>
+      @for (restaurant of restaurants(); track restaurant.id) {
+        <mat-option [value]="restaurant.id">{{ restaurant.name }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Branch</mat-label>
+    <mat-select formControlName="branchId">
+      <mat-option [value]="null">All branches</mat-option>
+      @for (restaurant of branchGroups(); track restaurant.id) {
+        <mat-optgroup [label]="restaurant.name">
+          @for (branch of restaurant.branches; track branch.id) {
+            <mat-option [value]="branch.id">{{ branch.name }}</mat-option>
+          }
+        </mat-optgroup>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Category</mat-label>
+    <mat-select formControlName="category">
+      <mat-option [value]="null">All categories</mat-option>
+      @for (category of categories(); track category) {
+        <mat-option [value]="category">{{ category }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Availability</mat-label>
+    <mat-select formControlName="available">
+      <mat-option [value]="null">Any</mat-option>
+      <mat-option [value]="true">Available</mat-option>
+      <mat-option [value]="false">Unavailable</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="price">
+    <mat-label>Min price</mat-label>
+    <input matInput type="number" formControlName="minPrice" min="0" step="0.5" inputmode="decimal" />
+    @if (form.controls.minPrice.hasError('min')) {
+      <mat-error>Cannot be negative</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field class="price">
+    <mat-label>Max price</mat-label>
+    <input matInput type="number" formControlName="maxPrice" min="0" step="0.5" inputmode="decimal" />
+    @if (form.controls.maxPrice.hasError('min')) {
+      <mat-error>Cannot be negative</mat-error>
+    }
+  </mat-form-field>
+
+  <button mat-stroked-button type="button" class="reset" (click)="reset()">
+    <mat-icon>filter_alt_off</mat-icon>Reset
+  </button>
+
+  @if (form.hasError('priceRange')) {
+    <p class="range-error" role="alert">Min price cannot be higher than max price.</p>
+  }
+</form>

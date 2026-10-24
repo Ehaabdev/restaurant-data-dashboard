@@ -1,0 +1,60 @@
+<h2 mat-dialog-title>{{ item.name }}</h2>
+
+<mat-dialog-content>
+  <dl class="details">
+    <dt>Item ID</dt>
+    <dd>{{ item.id }}</dd>
+    <dt>Restaurant</dt>
+    <dd>{{ item.restaurantName }}</dd>
+    <dt>Branch</dt>
+    <dd>{{ item.branchName }}</dd>
+    <dt>Category</dt>
+    <dd>{{ item.category }}</dd>
+    <dt>Current price</dt>
+    <dd>{{ item.price | currency }}</dd>
+    <dt>Last updated</dt>
+    <dd>{{ item.lastUpdated | date: 'medium' }}</dd>
+  </dl>
+
+  <form id="edit-item-form" class="edit-form" [formGroup]="form" (ngSubmit)="save()">
+    <mat-form-field>
+      <mat-label>Price</mat-label>
+      <span matTextPrefix>$&nbsp;</span>
+      <input
+        matInput
+        type="number"
+        formControlName="price"
+        step="0.01"
+        [min]="priceMin"
+        [max]="priceMax"
+        inputmode="decimal"
+        cdkFocusInitial
+      />
+      @let price = form.controls.price;
+      @if (price.hasError('required')) {
+        <mat-error>Price is required</mat-error>
+      } @else if (price.hasError('min')) {
+        <mat-error>Price must be at least {{ priceMin | currency }}</mat-error>
+      } @else if (price.hasError('max')) {
+        <mat-error>Price cannot be more than {{ priceMax | currency }}</mat-error>
+      } @else if (price.hasError('maxDecimals')) {
+        <mat-error>Use at most 2 decimal places</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-slide-toggle formControlName="available">
+      {{ form.controls.available.value ? 'Available' : 'Unavailable' }}
+    </mat-slide-toggle>
+  </form>
+
+  @if (saveError(); as error) {
+    <p class="save-error" role="alert">{{ error }}</p>
+  }
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button type="button" mat-dialog-close [disabled]="saving()">Cancel</button>
+  <button mat-flat-button type="submit" form="edit-item-form" [disabled]="form.invalid || form.pristine || saving()">
+    {{ saving() ? 'Saving…' : 'Save' }}
+  </button>
+</mat-dialog-actions>
