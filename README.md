@@ -4,6 +4,8 @@ An Angular 21 dashboard for exploring and editing **50,000 menu items** across 8
 
 Search, filtering, sorting, pagination and KPI aggregation all happen in a Node.js mock API. The browser only ever holds one page of 25–100 rows.
 
+**Demo video (4:40, captioned):** [Google Drive](https://drive.google.com/file/d/1AgoxghtQ1bND8RKRt6I5wWPdBra6Za2D/view?usp=sharing)
+
 | Dashboard Overview                        | Menu Data Explorer                            |
 | ----------------------------------------- | --------------------------------------------- |
 | ![Dashboard Overview](docs/dashboard.png) | ![Menu Data Explorer](docs/menu-explorer.png) |
@@ -217,7 +219,7 @@ I checked that the tests test real logic, not just that code runs. When `switchM
 
 ## Time spent
 
-**TODO: fill in before submitting.**
+About 2 hours, working with an AI coding assistant (permitted by the brief).
 
 ## What I would improve with more time
 
